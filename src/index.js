@@ -5,20 +5,21 @@ import { store } from './redux/store';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from './theme/theme';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AppRoutes from './routes';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppRoutes />
       </ThemeProvider>
-    </Provider>
-  </React.StrictMode>
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
