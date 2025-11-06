@@ -8,23 +8,10 @@ import {
   Link,
   Paper,
   Box,
-  Grid,
   Typography,
   Alert
 } from '@mui/material';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -67,9 +54,6 @@ export default function Signup() {
     setTimeout(() => {
       setLoading(false);
       setSuccess('Signup successful! You can now log in.');
-      // Log the data (simulate backend)
-      // In a real app, you would send this to a backend
-      // For demo, we use static credentials for login
       // eslint-disable-next-line no-console
       console.log('Signup data:', formData);
       setTimeout(() => navigate('/'), 1500);
@@ -77,40 +61,39 @@ export default function Signup() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundImage: 'url(https://source.unsplash.com/random?jewellery)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        p: 2
+      }}
+    >
       <CssBaseline />
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random?jewellery)',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            width: '100%',
-            maxWidth: 400,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+
+      <Paper elevation={8} sx={{ maxWidth: 520, width: '100%', p: { xs: 3, sm: 6 }, borderRadius: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <PersonAddAltIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              fontWeight: 600,
+              mb: 1,
+              textAlign: 'center',
+              fontSize: { xs: '1.4rem', sm: '1.8rem', md: '2rem' }
+            }}
+          >
             Sign up
           </Typography>
+
           {error && (
             <Alert severity="error" sx={{ mt: 2, width: '100%' }}>
               {error}
@@ -121,7 +104,8 @@ export default function Signup() {
               {success}
             </Alert>
           )}
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2, width: '100%' }}>
             <TextField
               margin="normal"
               required
@@ -134,6 +118,7 @@ export default function Signup() {
               value={formData.name}
               onChange={handleChange}
               disabled={loading}
+              size="small"
             />
             <TextField
               margin="normal"
@@ -146,6 +131,7 @@ export default function Signup() {
               value={formData.email}
               onChange={handleChange}
               disabled={loading}
+              size="small"
             />
             <TextField
               margin="normal"
@@ -159,6 +145,7 @@ export default function Signup() {
               value={formData.password}
               onChange={handleChange}
               disabled={loading}
+              size="small"
             />
             <TextField
               margin="normal"
@@ -172,27 +159,26 @@ export default function Signup() {
               value={formData.confirmPassword}
               onChange={handleChange}
               disabled={loading}
+              size="small"
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 2, mb: 1, py: 1.1, fontSize: { xs: '0.95rem', sm: '1rem' } }}
               disabled={loading}
             >
               {loading ? 'Signing up...' : 'Sign Up'}
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ mt: 5 }} />
+
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+              <Link href="/" variant="body2" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                Already have an account? Sign in
+              </Link>
+            </Box>
           </Box>
         </Box>
-      </Grid>
-    </Grid>
+      </Paper>
+    </Box>
   );
 }

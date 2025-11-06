@@ -11,24 +11,11 @@ import {
   Link,
   Paper,
   Box,
-  Grid,
   Typography,
   Alert
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { loginStart, loginSuccess, loginFailure, selectAuth } from '../redux/features/authSlice';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -72,44 +59,46 @@ export default function Login() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        p: 2
+      }}
+    >
       <CssBaseline />
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 4,
-            mx: 3,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+
+      <Paper elevation={8} sx={{ maxWidth: 420, width: '100%', p: { xs: 3, sm: 6 }, borderRadius: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              fontWeight: 600,
+              mb: 1,
+              textAlign: 'center',
+              fontSize: { xs: '1.4rem', sm: '1.8rem', md: '2rem' }
+            }}
+          >
             Sign in
           </Typography>
+
           {auth.error && (
             <Alert severity="error" sx={{ mt: 2, width: '100%' }}>
               {auth.error}
             </Alert>
           )}
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2, width: '100%' }}>
             <TextField
               margin="normal"
               required
@@ -122,6 +111,7 @@ export default function Login() {
               value={formData.email}
               onChange={handleChange}
               disabled={auth.loading}
+              size="small"
             />
             <TextField
               margin="normal"
@@ -135,6 +125,7 @@ export default function Login() {
               value={formData.password}
               onChange={handleChange}
               disabled={auth.loading}
+              size="small"
             />
             <FormControlLabel
               control={
@@ -151,28 +142,24 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 2, mb: 1, py: 1.1, fontSize: { xs: '0.95rem', sm: '1rem' } }}
               disabled={auth.loading}
             >
               {auth.loading ? 'Signing in...' : 'Sign In'}
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ mt: 5 }} />
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
+              <Link href="#" variant="body2" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                Forgot password?
+              </Link>
+              <Link href="/signup" variant="body2" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Box>
           </Box>
         </Box>
-      </Grid>
-    </Grid>
+      </Paper>
+    </Box>
   );
 }
         
